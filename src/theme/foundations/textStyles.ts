@@ -37,4 +37,10 @@ export const textStyles = {
         fontFamily: 'notoSans',
         lineHeight: '120%',
     },
+    code16: {
+        fontWeight: 700,
+        fontSize: space.space16,
+        fontFamily: 'ubuntuMono',
+        lineHeight: '120%',
+    },
 };
