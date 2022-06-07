@@ -11,8 +11,16 @@ import { useState } from 'react';
 
 export function Slider(props: SliderProps) {
     const [value, setValue] = useState<number>(50);
+    const [showTooltip, setShowTooltip] = useState(false);
+
     return (
-        <ChakraSlider value={value} defaultValue={50} onChange={v => setValue(v)}>
+        <ChakraSlider
+            value={value}
+            defaultValue={50}
+            onChange={v => setValue(v)}
+            onMouseEnter={() => setShowTooltip(true)}
+            onMouseLeave={() => setShowTooltip(false)}
+        >
             {/* SliderMark is broken for the value on the right */}
             <Text top='100%' position='absolute' color='secondary.medium' textStyle='text16'>
                 0
@@ -29,8 +37,14 @@ export function Slider(props: SliderProps) {
             <SliderTrack>
                 <SliderFilledTrack />
             </SliderTrack>
-            <Tooltip hasArrow label={`${value}`} isOpen={true} bg='primary.400'>
-                <SliderThumb />
+            <Tooltip
+                hasArrow
+                label={`${value}`}
+                isOpen={showTooltip}
+                bg='primary.400'
+                placement='top'
+            >
+                <SliderThumb cursor='pointer' />
             </Tooltip>
         </ChakraSlider>
     );
