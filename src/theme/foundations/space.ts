@@ -1,0 +1,17 @@
+export const space = {
+    space4: '4px',
+    space8: '8px',
+    space12: '12px',
+    space16: '16px',
+    space18: '18px',
+    space20: '20px',
+    space24: '24px',
+    space28: '28px',
+    space32: '32px',
+    space34: '34px',
+    space40: '40px',
+    space42: '42px',
+    space56: '56px',
+    space64: '64px',
+    space72: '72px',
+};
