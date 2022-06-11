@@ -18,8 +18,8 @@ export function Slider(props: SliderProps) {
             value={value}
             defaultValue={50}
             onChange={v => setValue(v)}
-            onMouseEnter={() => setShowTooltip(true)}
-            onMouseLeave={() => setShowTooltip(false)}
+            onChangeStart={() => setShowTooltip(true)}
+            onChangeEnd={() => setShowTooltip(false)}
         >
             {/* SliderMark is broken for the value on the right */}
             <Text top='100%' position='absolute' color='secondary.medium' textStyle='text16'>

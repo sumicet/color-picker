@@ -1,5 +1,5 @@
 import { Square, SquareProps } from './Square';
 
 export function ColorSquare(props: SquareProps) {
-    return <Square {...props} borderRadius='radius14' />;
+    return <Square {...props} borderRadius='radius14' cursor='pointer' />;
 }

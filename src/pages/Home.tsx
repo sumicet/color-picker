@@ -1,11 +1,10 @@
 import { Container, HStack, Text, VStack } from '@chakra-ui/layout';
-import { useTheme } from '@chakra-ui/system';
 import { ColorCard } from '../components/ColorCard';
 import { ColorSquare } from '../components/ColorSquare';
+import { Accordion } from '../components/Accordion';
 import { Slider } from '../components/Slider';
 
 export function Home() {
-    const theme = useTheme();
     return (
         <Container height='100%' width='100%'>
             <VStack
@@ -16,8 +15,8 @@ export function Home() {
                 padding='space24'
             >
                 <HStack width='100%'>
-                    {[...Array(10)].map(() => (
-                        <ColorSquare bg='accent.blue' />
+                    {[...Array(10)].map(index => (
+                        <ColorSquare key={`${index + 1}`} bg='rgba(82, 44, 184, 0.5)' />
                     ))}
                 </HStack>
                 <HStack>
@@ -34,6 +33,13 @@ export function Home() {
                     <Text textStyle='code16'>Code 16</Text>
                 </HStack>
                 <Slider />
+                <Accordion name='My palette'>
+                    <HStack width='100%'>
+                        {[...Array(10)].map(index => (
+                            <ColorSquare key={`${index + 1}`} bg='pink' />
+                        ))}
+                    </HStack>
+                </Accordion>
             </VStack>
         </Container>
     );

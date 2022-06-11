@@ -1,6 +1,6 @@
-import { cssVar } from '@chakra-ui/theme-tools';
+import { cssVar, StyleConfig } from '@chakra-ui/theme-tools';
 
-export const Tooltip = {
+export const Tooltip: StyleConfig = {
     baseStyle: {
         px: 'space16',
         py: 'space16',
