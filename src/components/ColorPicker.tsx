@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { RgbaStringColorPicker } from 'react-colorful';
 import { useDebouncedValue } from 'rooks';
 
-interface ColorPickerProps {
+export interface ColorPickerProps {
     color: string;
     onChange: (value: string) => void;
 }
@@ -16,7 +16,7 @@ const colorPickerStyle: CSSObject = {
         height: 'fit-content',
     },
     '.react-colorful__saturation': {
-        height: '228px',
+        height: 'colorPickerHeight',
         borderRadius: 'radius14',
     },
     '.react-colorful__hue, .react-colorful__alpha': {
@@ -32,6 +32,10 @@ const colorPickerStyle: CSSObject = {
 
 export function ColorPicker({ color, onChange }: ColorPickerProps) {
     const [value, setValue] = useState<string>(color);
+
+    useEffect(() => {
+        setValue(color);
+    }, [color]);
 
     // Support hex, rgb, hsl, etc.
     const rgbaString = useMemo(() => {

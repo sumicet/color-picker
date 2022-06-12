@@ -1,1 +1,3 @@
-export const sizes = {};
+export const sizes = {
+    colorPickerHeight: '228px',
+};
