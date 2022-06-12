@@ -29,13 +29,27 @@ export function Home() {
                     <ColorCard color='#FFFFFF' size='60px' name='Custom name' />
                 </HStack>
                 <HStack>
-                    <Text textStyle='text40'>Text 40</Text>
-                    <Text textStyle='text24'>Text 24</Text>
-                    <Text textStyle='text20'>Text 20</Text>
-                    <Text textStyle='text18'>Text 18</Text>
-                    <Text textStyle='text16'>Text 16</Text>
-                    <Text textStyle='text12'>Text 12</Text>
-                    <Text textStyle='code16'>Code 16</Text>
+                    <Text textStyle='text40' color='secondary.light'>
+                        Text 40
+                    </Text>
+                    <Text textStyle='text24' color='secondary.light'>
+                        Text 24
+                    </Text>
+                    <Text textStyle='text20' color='secondary.light'>
+                        Text 20
+                    </Text>
+                    <Text textStyle='text18' color='secondary.light'>
+                        Text 18
+                    </Text>
+                    <Text textStyle='text16' color='secondary.light'>
+                        Text 16
+                    </Text>
+                    <Text textStyle='text12' color='secondary.light'>
+                        Text 12
+                    </Text>
+                    <Text textStyle='code16' color='secondary.light'>
+                        Code 16
+                    </Text>
                 </HStack>
                 <Slider />
                 <Accordion name='My palette'>

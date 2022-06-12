@@ -18,7 +18,9 @@ export function Accordion({ name, children, ...props }: AccordionProps) {
         <ChakraAccordion allowMultiple allowToggle width='100%' defaultIndex={0} {...props}>
             <AccordionItem>
                 <AccordionButton>
-                    <Text textStyle='text20'>{name}</Text>
+                    <Text textStyle='text20' color='secondary.light'>
+                        {name}
+                    </Text>
                     <AccordionIcon boxSize='25px' />
                 </AccordionButton>
                 <AccordionPanel marginTop='space16'>{children}</AccordionPanel>
