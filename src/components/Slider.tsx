@@ -15,6 +15,7 @@ export function Slider(props: SliderProps) {
 
     return (
         <ChakraSlider
+            {...props}
             value={value}
             defaultValue={50}
             onChange={v => setValue(v)}

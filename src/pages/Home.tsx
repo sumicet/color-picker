@@ -3,8 +3,13 @@ import { ColorCard } from '../components/ColorCard';
 import { ColorSquare } from '../components/ColorSquare';
 import { Accordion } from '../components/Accordion';
 import { Slider } from '../components/Slider';
+import { ColorPicker } from '../components/ColorPicker';
+import { useState } from 'react';
+import { RgbaColor } from 'react-colorful';
 
 export function Home() {
+    const [color, setColor] = useState<string>('rgba(235, 64, 52, 0.4)');
+
     return (
         <Container height='100%' width='100%'>
             <VStack
@@ -40,6 +45,7 @@ export function Home() {
                         ))}
                     </HStack>
                 </Accordion>
+                <ColorPicker color={color} onChange={setColor} />
             </VStack>
         </Container>
     );

@@ -20,9 +20,11 @@
         "@chakra-ui/tooltip": "^2.0.2",
         "@emotion/react": "^11.9.0",
         "@emotion/styled": "^11.8.1",
+        "colord": "^2.9.2",
         "framer-motion": "^6.3.11",
         "lodash": "^4.17.21",
         "react": "^18.0.0",
+        "react-colorful": "^5.5.1",
         "react-dom": "^18.0.0"
     },
     "devDependencies": {
