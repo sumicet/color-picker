@@ -11,6 +11,7 @@
     },
     "dependencies": {
         "@chakra-ui/accordion": "^2.0.3",
+        "@chakra-ui/input": "^2.0.2",
         "@chakra-ui/layout": "^2.0.2",
         "@chakra-ui/provider": "^2.0.6",
         "@chakra-ui/slider": "^2.0.2",
@@ -25,7 +26,9 @@
         "lodash": "^4.17.21",
         "react": "^18.0.0",
         "react-colorful": "^5.5.1",
-        "react-dom": "^18.0.0"
+        "react-dom": "^18.0.0",
+        "react-router-dom": "^6.3.0",
+        "rooks": "^5.11.2"
     },
     "devDependencies": {
         "@chakra-ui/cli": "^2.1.0",
