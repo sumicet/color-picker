@@ -31,7 +31,7 @@ export function EnhancedColorPicker({ color, onChange }: ColorPickerProps) {
             </Flex>
             <VStack spacing='space20'>
                 <ColorSquare size='colorPickerHeight' bg={color} />
-                <Input value={input} onChange={handleInputChange} />
+                <Input value={input} onChange={handleInputChange} color='secondary.light' />
             </VStack>
         </HStack>
     );

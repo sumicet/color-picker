@@ -60,7 +60,7 @@ export function Explore() {
                     </HStack>
                 </Accordion>
                 <ColorPicker color={color} onChange={setColor} />
-                <Input value={color} />
+                <Input value={color} color='secondary.light' />
             </VStack>
         </Container>
     );
