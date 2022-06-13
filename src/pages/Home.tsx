@@ -45,7 +45,7 @@ export function Home() {
                     return;
                 }
 
-                return dcolor[action.type](setting).toRgbString();
+                return (dcolor[action.type](setting) as Colord).toRgbString();
             });
         };
 
