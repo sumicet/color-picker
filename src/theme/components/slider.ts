@@ -10,7 +10,7 @@ export const Slider: MultiStyleConfig = {
             }),
         },
         track: {
-            background: 'primary.400',
+            background: 'primary.200',
             height: '4px',
         },
         filledTrack: {

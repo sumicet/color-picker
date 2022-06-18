@@ -5,5 +5,15 @@ import { fonts } from './fonts';
 import { textStyles } from './textStyles';
 import { sizes } from './sizes';
 import { breakpoints } from './breakpoints';
+import { zIndices } from './z-index';
 
-export const foundations = { colors, space, radii, fonts, textStyles, sizes, breakpoints };
+export const foundations = {
+    colors,
+    space,
+    radii,
+    fonts,
+    textStyles,
+    sizes,
+    breakpoints,
+    zIndices,
+};
