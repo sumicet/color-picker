@@ -1,10 +1,10 @@
 import create from 'zustand';
-import { ColorSlice, createColorSlice } from './createColorSlide';
+import { SettingsSlice, createSettingsSlice } from './createSettingsSlide';
 
 // Independent slices pattern: https://github.com/pmndrs/zustand/blob/main/docs/typescript.md#independent-slices-pattern
 
-type Slice = ColorSlice; // & SomeOtherSlice
+type Slice = SettingsSlice; // & SomeOtherSlice
 
 export const useStore = create<Slice>()((...a) => ({
-    ...createColorSlice(...a),
+    ...createSettingsSlice(...a),
 }));
