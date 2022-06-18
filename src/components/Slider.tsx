@@ -9,18 +9,24 @@ import {
 import { Tooltip } from '@chakra-ui/tooltip';
 import { useState } from 'react';
 
+/**
+ *
+ * @value
+ * @onChange
+ */
 export function Slider(props: SliderProps) {
-    const [value, setValue] = useState<number>(50);
     const [showTooltip, setShowTooltip] = useState(false);
+    const { value } = props;
 
     return (
         <ChakraSlider
             {...props}
-            value={value}
-            defaultValue={50}
-            onChange={v => setValue(v)}
+            defaultValue={0.5}
             onChangeStart={() => setShowTooltip(true)}
             onChangeEnd={() => setShowTooltip(false)}
+            min={0}
+            max={1}
+            step={0.01}
         >
             {/* SliderMark is broken for the value on the right */}
             <Text top='100%' position='absolute' color='secondary.medium' textStyle='text16'>
@@ -33,7 +39,7 @@ export function Slider(props: SliderProps) {
                 color='secondary.medium'
                 textStyle='text16'
             >
-                100
+                1
             </Text>
             <SliderTrack>
                 <SliderFilledTrack />
@@ -42,7 +48,7 @@ export function Slider(props: SliderProps) {
                 hasArrow
                 label={`${value}`}
                 isOpen={showTooltip}
-                bg='primary.400'
+                bg='primary.200'
                 placement='top'
             >
                 <SliderThumb cursor='pointer' />
