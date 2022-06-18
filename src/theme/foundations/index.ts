@@ -4,5 +4,6 @@ import { radii } from './radii';
 import { fonts } from './fonts';
 import { textStyles } from './textStyles';
 import { sizes } from './sizes';
+import { breakpoints } from './breakpoints';
 
-export const foundations = { colors, space, radii, fonts, textStyles, sizes };
+export const foundations = { colors, space, radii, fonts, textStyles, sizes, breakpoints };
