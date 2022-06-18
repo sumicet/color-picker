@@ -10,8 +10,9 @@ export function Square({ size = '100%', children, ...props }: SquareProps) {
             {...props}
             width={size}
             _before={{ content: "''", display: 'block', paddingTop: '100%' }}
+            position='relative'
         >
-            <Flex position='absolute' flexDirection='column'>
+            <Flex position='absolute' top='0' width='100%' height='100%'>
                 {children}
             </Flex>
         </Box>
