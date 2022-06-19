@@ -9,6 +9,7 @@ interface ColorCardProps extends Omit<StackProps, 'color' | 'size'> {
     name?: string;
 }
 
+// TODO: Add input for color name and use this component on the Home page
 export function ColorCard({ size, color, name, ...props }: ColorCardProps) {
     const dcolor = colord(color);
 
