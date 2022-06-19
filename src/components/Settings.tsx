@@ -14,10 +14,12 @@ import { useStore } from '../store/useStore';
 import { Slider } from './Slider';
 import { useEffect, useState } from 'react';
 import { useDebouncedValue } from 'rooks';
+import { ColorCard } from './ColorCard';
 
 export const Settings = ({ name }: { name: string }) => {
     const generateColors = useStore(state => state.generateColors);
     const settings = useStore(state => state.generatedColors[name]);
+    const color = useStore(state => state.color);
 
     const [step, setStep] = useState<number>(settings.step);
     const [debouncedStep] = useDebouncedValue(step, 50);
@@ -54,6 +56,7 @@ export const Settings = ({ name }: { name: string }) => {
                             Value @{settings.step}
                         </Text>
                         <Slider value={step} onChange={setStep} />
+                        <ColorCard color={color} size='30%' width='100%' />
                     </VStack>
                 </PopoverBody>
             </PopoverContent>
