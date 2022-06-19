@@ -9,9 +9,12 @@ export interface SettingsSlice {
             name: string; // The name of the filter
             step: number; // The value applied to the filter
             colors: (string | undefined)[]; // The generated colors
+            lockedTo?: string; // Lock the source color to this color
         };
     };
     generateColors: (value: { type: string; step?: number; color?: string }) => void;
+    activateColorLock: (filter: string, color: string) => void;
+    disableColorLock: (filter: string) => void;
 }
 
 export const conversionTypes = ['alpha', 'saturate', 'desaturate', 'lighten', 'darken'] as const;
@@ -97,5 +100,27 @@ export const createSettingsSlice: StateCreator<SettingsSlice, [], []> = (set, ge
             }));
             return;
         }
+    },
+    activateColorLock: (filter: string, color: string) => {
+        set(state => ({
+            generatedColors: {
+                ...state.generatedColors,
+                [filter]: {
+                    ...state.generatedColors[filter],
+                    lockedTo: color,
+                },
+            },
+        }));
+    },
+    disableColorLock: (filter: string) => {
+        set(state => ({
+            generatedColors: {
+                ...state.generatedColors,
+                [filter]: {
+                    ...state.generatedColors[filter],
+                    lockedTo: undefined,
+                },
+            },
+        }));
     },
 });
