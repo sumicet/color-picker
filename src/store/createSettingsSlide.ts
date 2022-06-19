@@ -1,6 +1,12 @@
 import { colord, Colord } from 'colord';
 import { StateCreator } from 'zustand';
 import produce from 'immer';
+import { Action } from 'history';
+
+interface FilterSettings {
+    step?: number; // The value applied to the filter
+    lockedTo?: string; // Lock the source color to this color
+}
 
 export interface SettingsSlice {
     color: string;
@@ -8,13 +14,14 @@ export interface SettingsSlice {
     generatedColors: {
         [key: string]: {
             name: string; // The name of the filter
-            step: number; // The value applied to the filter
             colors: (string | undefined)[]; // The generated colors
-            lockedTo?: string; // Lock the source color to this color
+            defaultStep: number;
+            filterSettings?: FilterSettings;
         };
     };
     generateColors: (
-        value: { type: string; step?: number; color?: string },
+        value: { type: string; color?: string },
+        filterSettings?: FilterSettings,
         options?: { forceColor?: boolean }
     ) => void;
     activateColorLock: (filter: string, color: string) => void;
@@ -27,11 +34,19 @@ export const conversionTypes = ['alpha', 'saturate', 'desaturate', 'lighten', 'd
 export type ConversionTypes = typeof conversionTypes[number];
 const generatedColorsCount = 10; // For each filter
 
+const defaultStep: { [key: string]: number } = {
+    alpha: 0.05,
+    darken: 0.07,
+    lighten: 0.07,
+    saturate: 0.1,
+    desaturate: 0.1,
+};
+
 export const createSettingsSlice: StateCreator<SettingsSlice, [], []> = (set, get) => ({
     color: 'rgba(110, 91, 214, 1)',
     setColor: (color: string) => set({ color }),
     generatedColors: {},
-    generateColors: ({ type, step, color: customColor }, options) => {
+    generateColors: ({ type, color: customColor }, filterSettings, options) => {
         const dcolor = colord(customColor || get().color);
         const equivalentConversionType = type.replace(/[^a-zA-Z]/g, '') as ConversionTypes;
 
@@ -39,18 +54,17 @@ export const createSettingsSlice: StateCreator<SettingsSlice, [], []> = (set, ge
         const computeColorManipulation = ({
             initialStep = 1,
             startFrom0,
-            defaultStep = 0.05,
         }: {
             initialStep?: number;
             startFrom0?: boolean;
-            defaultStep?: number;
         }): (string | undefined)[] => {
-            if (get().generatedColors[type]?.lockedTo && !options?.forceColor) {
+            if (get().generatedColors[type]?.filterSettings?.lockedTo && !options?.forceColor) {
                 return get().generatedColors[type].colors;
             }
 
             return [...Array(generatedColorsCount - 1)].map((_, index) => {
-                const sumStep: number = index * (step || defaultStep);
+                const sumStep: number =
+                    index * (filterSettings?.step || defaultStep[equivalentConversionType]);
                 const setting: number = startFrom0 ? sumStep : initialStep - sumStep;
 
                 if (sumStep < 0 || sumStep > 1) {
@@ -72,61 +86,68 @@ export const createSettingsSlice: StateCreator<SettingsSlice, [], []> = (set, ge
                         colors: computeColorManipulation({
                             initialStep: dcolor.rgba.a,
                         }),
-                        step: step || 0.05,
                         name: type,
+                        defaultStep: defaultStep[equivalentConversionType],
                     };
                 })
             );
-            return;
-        }
-
-        if (type.includes('darken') || type.includes('lighten')) {
-            const defaultLuminosityStep = 0.07;
+        } else if (type.includes('darken') || type.includes('lighten')) {
             set(
                 produce((state: SettingsSlice) => {
                     state.generatedColors[type] = {
                         ...state.generatedColors[type],
                         colors: computeColorManipulation({
                             startFrom0: true,
-                            defaultStep: defaultLuminosityStep,
                         }),
-                        step: step || defaultLuminosityStep,
                         name: type,
+                        defaultStep: defaultStep[equivalentConversionType],
                     };
                 })
             );
-            return;
-        }
-
-        if (type.includes('desaturate') || type.includes('saturate')) {
-            const defaultSaturateStep = 0.1;
+        } else if (type.includes('desaturate') || type.includes('saturate')) {
             set(
                 produce((state: SettingsSlice) => {
                     state.generatedColors[type] = {
                         ...state.generatedColors[type],
                         colors: computeColorManipulation({
                             startFrom0: true,
-                            defaultStep: defaultSaturateStep,
                         }),
-                        step: step || defaultSaturateStep,
                         name: type,
+                        defaultStep: defaultStep[equivalentConversionType],
                     };
                 })
             );
-            return;
+        }
+
+        // Store filter settings
+        if (filterSettings) {
+            set(
+                produce((state: SettingsSlice) => {
+                    state.generatedColors[type].filterSettings = {
+                        ...state.generatedColors[type].filterSettings,
+                        ...filterSettings,
+                    };
+                })
+            );
         }
     },
     activateColorLock: (filter: string, color: string) => {
         set(
             produce(state => {
-                state.generatedColors[filter].lockedTo = color;
+                state.generatedColors[filter].filterSettings = {
+                    ...state.generatedColors[filter].filterSettings,
+                    lockedTo: color,
+                };
             })
         );
     },
     disableColorLock: (filter: string) => {
         set(
             produce(state => {
-                state.generatedColors[filter].lockedTo = undefined;
+                state.generatedColors[filter].filterSettings = {
+                    ...state.generatedColors[filter].filterSettings,
+                    lockedTo: undefined,
+                };
             })
         );
     },

@@ -1,4 +1,4 @@
-import { Container, HStack, Text, VStack } from '@chakra-ui/layout';
+import { Container, Flex, HStack, Text, VStack } from '@chakra-ui/layout';
 import { useEffect } from 'react';
 import { EnhancedColorPicker } from '../components/ColorPickerWithInput';
 import { ColorSquare } from '../components/ColorSquare';
@@ -41,7 +41,7 @@ export function Home() {
                 <VStack spacing='space20' flex={1} padding='space24' width='100%'>
                     {Object.entries(generatedColors).map(([key, value]) => (
                         <VStack key={`${key}-text`} align='flex-start' width='100%'>
-                            <HStack spacing='space12'>
+                            <HStack spacing='space12' width='100%'>
                                 <Text color='secondary.light' textStyle='text16'>
                                     {capitalize(value.name)}
                                 </Text>
@@ -52,15 +52,17 @@ export function Home() {
                                         boxSize='icon.default'
                                     />
                                     <Text color='secondary.light' textStyle='text16'>
-                                        {value.step}
+                                        {value.filterSettings?.step || value.defaultStep}
                                     </Text>
                                 </HStack>
-                                <Settings name={value.name} />
+                                <Flex flex={1} justify='flex-end'>
+                                    <Settings name={value.name} />
+                                </Flex>
                             </HStack>
                             <HStack key={`${key}-colors`} width='100%'>
                                 {value.colors.map((currentColor, index) => (
                                     <ColorSquare
-                                        key={`${color} ${currentColor} ${value.step} ${index + 1}`}
+                                        key={`${color} ${currentColor} ${index + 1}`}
                                         bg={currentColor}
                                     />
                                 ))}
