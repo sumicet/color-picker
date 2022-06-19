@@ -6,9 +6,9 @@ import {
     SliderFilledTrack,
     SliderThumb,
 } from '@chakra-ui/slider';
-import { Tooltip } from '@chakra-ui/tooltip';
 import { ReactNode, useState } from 'react';
 import { Square } from './Square';
+import { Tooltip } from './Tooltip';
 
 interface SliderProps extends Omit<StackProps, 'onChange'> {
     value: ChakraSliderProps['value'];
@@ -47,13 +47,7 @@ export function Slider({ value, onChange, ...props }: SliderProps) {
                 <SliderTrack>
                     <SliderFilledTrack />
                 </SliderTrack>
-                <Tooltip
-                    hasArrow
-                    label={`${value}`}
-                    isOpen={showTooltip}
-                    bg='primary.200'
-                    placement='top'
-                >
+                <Tooltip label={`${value}`} isOpen={showTooltip} bg='primary.200'>
                     <SliderThumb cursor='pointer' />
                 </Tooltip>
             </ChakraSlider>

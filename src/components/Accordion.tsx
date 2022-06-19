@@ -7,7 +7,6 @@ import {
     AccordionProps as ChakraAccordionProps,
 } from '@chakra-ui/accordion';
 import { Text } from '@chakra-ui/layout';
-import { Children } from 'react';
 
 interface AccordionProps extends ChakraAccordionProps {
     name: string;

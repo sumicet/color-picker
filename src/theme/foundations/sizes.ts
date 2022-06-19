@@ -3,4 +3,5 @@ export const sizes = {
     icon: {
         default: '18px',
     },
+    checkbox: '18px',
 };
