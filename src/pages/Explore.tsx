@@ -51,7 +51,7 @@ export function Explore() {
                         Code 16
                     </Text>
                 </HStack>
-                <Slider />
+                {/* <Slider /> */}
                 <Accordion name='My palette'>
                     <HStack width='100%'>
                         {[...Array(10)].map(index => (
