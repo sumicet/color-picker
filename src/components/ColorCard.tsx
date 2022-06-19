@@ -1,4 +1,5 @@
 import { HStack, Text, StackProps, VStack } from '@chakra-ui/layout';
+import { colord } from 'colord';
 import { ColorSquare } from './ColorSquare';
 import { SquareProps } from './Square';
 
@@ -9,15 +10,18 @@ interface ColorCardProps extends Omit<StackProps, 'color' | 'size'> {
 }
 
 export function ColorCard({ size, color, name, ...props }: ColorCardProps) {
+    const dcolor = colord(color);
+
     return (
         <HStack {...props} spacing='space12'>
             <ColorSquare size={size} bg={color} />
             <VStack spacing='space4' align='flex-start'>
-                <Text noOfLines={1} textStyle='text16' color='secondary.light'>
-                    {name || color}
+                {/* TODO: Add copy to clipboard */}
+                <Text textStyle='code16' color='secondary.light'>
+                    {dcolor.toRgbString()}
                 </Text>
                 <Text textStyle='code16' color='secondary.light'>
-                    {color}
+                    {dcolor.toHslString()}
                 </Text>
             </VStack>
         </HStack>

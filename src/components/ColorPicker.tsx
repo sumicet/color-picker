@@ -4,6 +4,7 @@ import { colord } from 'colord';
 import { useEffect, useMemo, useState } from 'react';
 import { RgbaStringColorPicker } from 'react-colorful';
 import { useDebouncedValue } from 'rooks';
+import { useOnDebouncedValue } from '../hooks/useOnDebouncedValue';
 
 export interface ColorPickerProps {
     color: string;
@@ -31,7 +32,10 @@ const colorPickerStyle: CSSObject = {
 };
 
 export function ColorPicker({ color, onChange }: ColorPickerProps) {
-    const [value, setValue] = useState<string>(color);
+    const [value, setValue] = useOnDebouncedValue<string>(
+        debouncedValue => onChange(debouncedValue),
+        color
+    );
 
     useEffect(() => {
         setValue(color);
@@ -41,12 +45,6 @@ export function ColorPicker({ color, onChange }: ColorPickerProps) {
     const rgbaString = useMemo(() => {
         return value.startsWith('rgba') ? value : colord(value).toRgbString();
     }, [value]);
-
-    const [debouncedRgbaString] = useDebouncedValue(value, 50);
-
-    useEffect(() => {
-        onChange(debouncedRgbaString || '');
-    }, [debouncedRgbaString]);
 
     return (
         <Box width='100%'>

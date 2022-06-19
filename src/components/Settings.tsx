@@ -12,25 +12,18 @@ import capitalize from 'lodash/capitalize';
 import { Box, HStack, Text, VStack } from '@chakra-ui/layout';
 import { useStore } from '../store/useStore';
 import { Slider } from './Slider';
-import { useEffect, useState } from 'react';
-import { useDebouncedValue } from 'rooks';
 import { ColorCard } from './ColorCard';
+import { useOnDebouncedValue } from '../hooks/useOnDebouncedValue';
 
 export const Settings = ({ name }: { name: string }) => {
     const generateColors = useStore(state => state.generateColors);
     const settings = useStore(state => state.generatedColors[name]);
     const color = useStore(state => state.color);
 
-    const [step, setStep] = useState<number>(settings.step);
-    const [debouncedStep] = useDebouncedValue(step, 50);
-
-    useEffect(() => {
-        if (debouncedStep === null) {
-            return;
-        }
-
-        generateColors({ type: name, step: debouncedStep });
-    }, [debouncedStep]);
+    const [step, setStep] = useOnDebouncedValue(
+        debouncedStep => generateColors({ type: name, step: debouncedStep }),
+        settings.step
+    );
 
     return (
         <Popover placement='top'>
@@ -51,7 +44,7 @@ export const Settings = ({ name }: { name: string }) => {
                     {/* <PopoverCloseButton /> */}
                 </HStack>
                 <PopoverBody>
-                    <VStack align='flex-start'>
+                    <VStack align='flex-start' spacing='space16'>
                         <Text textStyle='text16' color='secondary.medium'>
                             Value @{settings.step}
                         </Text>
